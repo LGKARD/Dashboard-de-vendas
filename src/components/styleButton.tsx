@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { ButtonProps } from '@/types'
 import { pxToRem } from '@/utils'
 
-export const BannerImage = styled.button<ButtonProps>`
+export const StyledButton = styled.button<ButtonProps>`
   border-radius: ${pxToRem(8)};
   border: none;
   box-sizing: border-box;
@@ -44,7 +44,8 @@ export const BannerImage = styled.button<ButtonProps>`
     color: ${(props) => props.theme.buttons.disabledColor};
     cursor: not-allowed;
     &:hover {
-      color: ${(props) => props.theme.buttons.disabled};
+      background-color: ${(props) => props.theme.buttons.disabled};
+      color: ${(props) => props.theme.buttons.disabledColor};
     }
   }
 `
