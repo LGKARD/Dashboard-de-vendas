@@ -1,7 +1,13 @@
+import { Header, CardComponent } from "@/components"
+import { Container } from '@mui/material'
+
 function Home() {
   return (
     <>
-      <h1>HOME</h1>
+     <Header />
+     <Container maxWidth="lg">
+      <CardComponent className="">Card</CardComponent>
+     </Container>
     </>
   )
 }
