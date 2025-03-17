@@ -2,7 +2,7 @@
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 
-export type MassageProps = {
+export type MessageProps = {
     msg: string
     type: 'success' | 'error'
 }
