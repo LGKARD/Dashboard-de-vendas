@@ -1,5 +1,5 @@
-import { Header, CardComponent, CustomTable, CustomChart, AvatarList } from "@/components"
-import { Container } from '@mui/material'
+import { Header, CardComponent, CustomTable, CustomChart, AvatarList, StyledH2 } from "@/components"
+import { Container, Grid } from '@mui/material'
 import { currencyConverter } from "@/utils"
 
 function Home() {
@@ -50,16 +50,47 @@ function Home() {
     <>
      <Header />
      <Container maxWidth="lg">
-      <CardComponent className="">Card</CardComponent>
-      <CardComponent>
-        <AvatarList listData={mockListData}/>
-      </CardComponent>
-      <CardComponent>
-        <CustomTable headers={mockTableData.headers} rows={mockTableData.rows}/>
-      </CardComponent>
-      <CardComponent>
-        <CustomChart labels={ ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']} data={[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120]} type="bar"/>
-      </CardComponent>
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={4}>
+          <CardComponent>
+            <StyledH2 className="mb-1">Total de vendas do mês</StyledH2>
+          </CardComponent>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <CardComponent>
+            <StyledH2 className="mb-1">Meta do mês</StyledH2>
+          </CardComponent>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <CardComponent>
+            <StyledH2 className="mb-1">Leads contactados</StyledH2>
+          </CardComponent>
+        </Grid>
+        <Grid item xs={12} md={7}>
+          <CardComponent>
+            <StyledH2 className="mb-1">Valor de vendas do mês</StyledH2>
+            <CustomChart labels={ ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']} data={[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120]} type="line"/>
+          </CardComponent>
+        </Grid>
+        <Grid item xs={12} md={5}>
+          <CardComponent>
+            <StyledH2 className="mb-1">Valor de vendas do mês</StyledH2>
+            <AvatarList listData={mockListData}/>
+          </CardComponent>
+        </Grid>
+        <Grid item xs={12} md={5}>
+          <CardComponent>
+            <StyledH2 className="mb-1">Notícias relevantes</StyledH2>
+            <CustomTable headers={mockTableData.headers} rows={mockTableData.rows}/>
+          </CardComponent>
+        </Grid>
+        <Grid item xs={12} md={7}>
+          <CardComponent>
+            <StyledH2 className="mb-1">Valor de vendas por mês</StyledH2>
+            <CustomChart labels={ ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']} data={[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120]} type="bar"/>
+          </CardComponent>
+        </Grid>
+      </Grid>
      </Container>
     </>
   )
