@@ -16,6 +16,13 @@ export const StyledH2 = styled.h2<TypographiesProps>`
   letter-spacing: ${pxToRem(-1)};
   line-height: ${(props) => pxToRem(props.lineheight || 24)};
 `
+export const StyledH3 = styled.h2<TypographiesProps>`
+  color: ${(props) => props.color || 'inherit'};
+  font-size: ${(props) => pxToRem(props.size || 16)};
+  font-weight: ${(props) => props.weight || 600};
+  letter-spacing: ${pxToRem(-1)};
+  line-height: ${(props) => pxToRem(props.lineheight || 24)};
+`
 export const StyledP = styled.p<TypographiesProps>`
   color: ${(props) => props.color || 'inherit'};
   font-size: ${(props) => pxToRem(props.size || 16)};
