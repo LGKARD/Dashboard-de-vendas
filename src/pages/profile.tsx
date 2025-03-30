@@ -30,11 +30,10 @@ function Profile() {
   const themeContext = useContext(AppThemeContext)
 
   //HOOKS
-  const [updateMessage, setUpdateMessage] =
-    useState <MessageProps>({
-      type: 'success',
-      msg: '',
-    })
+  const [updateMessage, setUpdateMessage] = useState<MessageProps>({
+    type: 'success',
+    msg: '',
+  })
   const clearMessage = () => {
     setTimeout(() => {
       setUpdateMessage({ type: 'success', msg: '' })
@@ -54,10 +53,8 @@ function Profile() {
     error: profileUpdateError,
   } = usePut<ProfileEditableData>('profile/update')
 
-  const {
-    deleteData: profileDeleteData, 
-    loading: profileDeleteLoading
-  } = useDelete('profile/delete')
+  const { deleteData: profileDeleteData, loading: profileDeleteLoading } =
+    useDelete('profile/delete')
 
   useEffect(() => {
     if (profileData) {
@@ -97,7 +94,9 @@ function Profile() {
     })
   }
   const handleDelete = async () => {
-    if (confirm('Deseja realmente excluir sua conta? Delete seus leads antes.')) {
+    if (
+      confirm('Deseja realmente excluir sua conta? Delete seus leads antes.')
+    ) {
       try {
         await profileDeleteData()
         alert('Conta excluida com sucesso')
@@ -120,7 +119,7 @@ function Profile() {
         msg: 'Erro ao atualizar perfil',
         type: 'error',
       })
-    } 
+    }
     clearMessage()
   }, [profileUpdateData, profileUpdateError])
 
@@ -157,14 +156,18 @@ function Profile() {
                           disabled: !formValid || profileUpdateLoading,
                           type: 'submit',
                           onClick: handleSubmit,
-                          children: profileUpdateLoading ? 'Carregando...' : 'Atualizar meu perfil',
+                          children: profileUpdateLoading
+                            ? 'Carregando...'
+                            : 'Atualizar meu perfil',
                         },
                         {
                           className: 'alert',
                           disabled: profileDeleteLoading,
                           type: 'button',
                           onClick: handleDelete,
-                          children: profileDeleteLoading ? 'Carregando...' : 'Excluir minha conta',
+                          children: profileDeleteLoading
+                            ? 'Carregando...'
+                            : 'Excluir minha conta',
                         },
                       ]}
                       message={updateMessage}
