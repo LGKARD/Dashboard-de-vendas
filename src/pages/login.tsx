@@ -5,54 +5,74 @@ import { jwtDecode } from 'jwt-decode'
 import Cookies from 'js-cookie'
 
 //COMPONENT
-import { BannerImage, FormComponents, Logo, StyledH1, StyledP } from '@/components'
+import {
+  BannerImage,
+  FormComponents,
+  Logo,
+  StyledH1,
+  StyledP,
+} from '@/components'
 
 //UTILS
 import { jwtExpirationDateConverter, pxToRem } from '@/utils'
-
-
 
 //HOOKS
 import { useFormValidation, usePost } from '@/hooks'
 
 //TYPES
-import { DecodedJwt, MessageProps, LoginData, LoginPostData} from '@/types'
+import { DecodedJwt, MessageProps, LoginData, LoginPostData } from '@/types'
+
+//REDUX
+import { useSelector } from 'react-redux'
+import { RootState } from '@/redux'
 
 function Login() {
   const navigate = useNavigate()
+  const { email, message } = useSelector(
+    (state: RootState) => state.createProfile
+  )
   const inputs = [
     { type: 'email', placeholder: 'Email' },
     { type: 'password', placeholder: 'Senha' },
   ]
-  const {data, loading, error, postData} = usePost<LoginData, LoginPostData>('/login')
+  const { data, loading, error, postData } = usePost<LoginData, LoginPostData>(
+    '/login'
+  )
   const { formValues, handleChange, formValid } = useFormValidation(inputs)
   const handleMessage = (): MessageProps => {
-    if (!error) return {msg:'', type:'success'}
+    if (!error) return { msg: message ?? '', type: 'success' }
     switch (error) {
       case 401:
-        return {msg:'Email ou senha incorretos', type:'error'}
+        return { msg: 'Email ou senha incorretos', type: 'error' }
       default:
-        return {msg:'Erro ao logar', type:'error'}
+        return { msg: 'Erro ao logar', type: 'error' }
     }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await postData({email: String(formValues[0]), password: String(formValues[1])});
+    e.preventDefault()
+    await postData({
+      email: String(formValues[0]),
+      password: String(formValues[1]),
+    })
   }
   useEffect(() => {
     if (data?.jwt_token) {
-      const decoded: DecodedJwt = jwtDecode(data.jwt_token);
+      const decoded: DecodedJwt = jwtDecode(data.jwt_token)
       Cookies.set('Authorization', data.jwt_token, {
         expires: jwtExpirationDateConverter(decoded.exp),
         secure: true,
-
       })
-      
     }
+    if (Cookies.get('Authorization')) navigate('/home')
+  }, [data, navigate])
 
-    if (Cookies.get('Authorization')) navigate('/home');
-  }, [data, navigate]);
+  useEffect(() => {
+    if (email) {
+      handleChange(0, email)
+    }
+  }, [email])
+
   return (
     <>
       <Box>
